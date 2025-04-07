@@ -14,6 +14,10 @@ A window pops up and make sure that the settings are exactly like the screenshot
 
 ![screenshot](Screenshots/Screenshot-Stellaris.PNG)
 
+<img src="Screenshots/Screenshot-Stellaris.PNG" width=50% height=50%>
+
+<img src="Screenshots/Screenshot-Stellaris.PNG" width=50%>
+
 This will save a TIF stack that has 2 slices for each timepoint.
 
 
