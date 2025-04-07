@@ -44,8 +44,8 @@ This will save a TIF stack that has 2 slices for each timepoint.
 
 - The analysis will be performed on all CSV files, assuming that each CSV is an independent replicate.
 - The code in the .Rmd file assumes that the CSV files are in a subfolder called `output_ImageJ`
-- Run the Rmd script step-by-step and tweak where necessary.
-- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example `THINGL-analysis.html` is also included in this repo.
+- Run the THINGL-analysis.Rmd script step-by-step and tweak where necessary.
+- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example `THINGL-analysis.html` is also included in this repo (download and open in a web browser)
 
 
 
