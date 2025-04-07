@@ -1,0 +1,166 @@
+---
+title: "THINGL-analysis"
+author: "Joachim Goedhart"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(ggbeeswarm)
+theme_set(theme_bw(base_size = 16))
+```
+
+## THINGL analysis
+
+This notebook describes the analysis of FLIM measurements using a Glucose biosensor, TINGL, reported by [Botman et al. (2024)](https://doi.org/10.1101/2024.11.29.626064).
+TINGL was developed for use in yeast and THINGL (Turquoise Human INdicator for GLucose) is the human variant. Here, we examine the intensity changes and lifetime changes of THINGL expressed in HeLa cells and exposed to Glucose.
+
+The lifetime data are acquired on a Leica Stellaris8 and exported as TIF stack with two 'channels' per timepoint. One channel with the intensity and the second channel with the lifetime data. ROIs were drawn to select cells and the intensity&lifetime data was quantified over time with ImageJ. Results for each timeseries are stored in a CSV file. There is one CSV file for each timeseries experiment.
+
+We have four CSV files with intensity&lifetime data that we will load and merge into a single dataframe:
+
+```{r}
+df_combined <- list.files(path = "output_ImageJ", pattern = "\\.csv$", full.names = TRUE) %>%
+  set_names() %>%
+  map_dfr(read.csv, .id = "source")
+head(df_combined)
+```
+
+The data in the column 'source' comes from the filename and that in 'Label' is from ImageJ. Both identify the individual experiments, which we treat as independent replicates here.
+
+We will to split the 'Label' column, bnased on the colon as a separator, to get unique IDs for the regions of interest (ROI):
+
+```{r}
+df_combined <- df_combined %>%
+  separate("Label", into = c("File", "ROI", "x"), sep = ":")
+```
+
+Get rid of some columns that do not contain useful data:
+
+```{r}
+df_combined <- df_combined %>% select(-x, -X)
+```
+
+Remove last frames as these do not contain information:
+
+```{r}
+df_combined <- df_combined %>% filter(Frame <= 70)
+```
+
+Let's have a look at the intensity (Ch1) and lifetime (Ch2) traces data:
+
+```{r}
+df_combined %>% ggplot(., aes(x=Frame, y=Mean, group = ROI)) + geom_line() +facet_grid(Ch~source)
+```
+
+The data in Channel 1 is intensity and Channel 2 is lifetime. We will separate these into different columns as these are different measures:
+
+```{r}
+df_lifetime <- df_combined %>%
+  pivot_wider(
+    names_from = Ch,
+    values_from = Mean,
+    names_prefix = "Channel_"
+  ) %>% rename(Intensity = Channel_1)
+```
+
+The lifetime data in the exported images is scaled between 0-65535 and this represents 10 ns. We will add a new column with the correct lifetime values:
+
+```{r}
+df_lifetime <- df_lifetime %>% mutate(Lifetime = Channel_2/2^16*10) %>% select(-Channel_2)
+```
+
+Each frame is 15s, so let's add a column with corrected time:
+
+```{r}
+df_lifetime <- df_lifetime %>% mutate(Time = (Frame-1)*15)
+```
+
+At this point we have a dataframe that is well-structured and it can be used for plotting the lifetime data over time:
+
+```{r}
+ggplot(df_lifetime, aes(x=Time, y=Lifetime, group = ROI)) + geom_line() +facet_wrap(~source, ncol=4)
+```
+
+We can also save this as a CSV file as it can be used for plotting with e.g. PlotTwist:
+
+```{r}
+df_lifetime %>% write.csv("output_R/Lifetime_traces.csv", row.names = F)
+```
+
+In this case, we'd like to know the 'contrast' or maximal lifetime change that we achieve with the biosensor. So I basically want to isolate a row for analysis of lifetime pre and post addition of 5 mM Glucose. Therefore I select frame 1 and frame 60 and store this data in a new dataframe:
+
+```{r}
+df_pre_post <- df_lifetime %>% filter(Frame %in% c(1, 60))
+```
+
+To change the values that represent the frames (0,60) into concentration (0 mM, 5 mM):
+
+```{r}
+df_pre_post <- df_pre_post %>% mutate(concentration = recode(Frame, `1` = "0", `60` = "5")) %>%
+  select(-Frame) 
+```
+
+Now we can calculate the fold-change in intensity and the difference in lifetime:
+
+```{r}
+df_pre_post <- df_pre_post %>%
+  group_by(ROI) %>%
+  mutate(`F/F0` = Intensity[concentration == "5"] / Intensity[concentration == "0"]) %>%
+  mutate(Delta_Tau = Lifetime[concentration == "5"] - Lifetime[concentration == "0"]) %>%
+  ungroup()
+```
+
+Ok, that's it, we can do some plotting now. This plot shows the change in intensity against the change in lifetime:
+
+```{r}
+df_pre_post %>% ggplot(aes(x=Lifetime, y=Intensity, group=ROI)) + geom_point() + geom_line()
+```
+
+Let's look at the lifetimes at 0mM and 5mM Glucose:
+
+```{r}
+df_pre_post %>% ggplot(aes(x=concentration, y=Lifetime, group=ROI, colour = File)) + geom_point() + geom_line() +facet_wrap(~File)
+```
+
+Let's summarize this for the different replicates:
+
+```{r}
+df_pre_post_avg <- df_pre_post %>%
+  group_by(File,concentration) %>% summarise(avg_Lifetime = mean(Lifetime),
+                                             n=n())
+```
+We can use this for a superplot, where the average of each independent experiment is shown as a larger dot (N=4 in this case):
+
+```{r fig.asp=2, fig.width=3}
+ggplot(df_pre_post, aes(x=concentration, y=Lifetime, color = File)) + geom_quasirandom(shape=19) +
+  geom_point(data = df_pre_post_avg, aes(x=concentration, y=avg_Lifetime, fill = File), shape=21, size=8, color="black", alpha=0.7) + 
+  theme(legend.position = "none") +
+  labs(x="Glucose [mM]",
+       y="Lifetime [ns]")
+  
+```
+
+We can also look at the intensity change in the same way, but we first need to modify the dataframe to get rid of duplicate values for `F/F0`:
+
+```{r}
+df_fold <- df_pre_post %>% filter(concentration == '5')
+df_fold_avg <- df_fold %>% group_by(File,concentration) %>% summarise(avg_fold = mean(`F/F0`),
+                                             n=n())
+```
+
+Now, let's plot it:
+
+```{r fig.asp=2, fig.width=3}
+ggplot(df_fold, aes(x=1, y=`F/F0`, color = File)) + geom_quasirandom(shape=19) +
+  geom_point(data = df_fold_avg, aes(x=1, y=avg_fold, fill = File), shape=21, size=8, color="black", alpha=0.7) + 
+  theme(legend.position = "none") +
+  labs(x="",
+       y="Fold")
+  
+```
+
+
+  
