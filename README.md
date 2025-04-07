@@ -5,7 +5,7 @@ The analysis is simple and fit-free as it uses the arrival times that are determ
 
 The analysis consists of three steps; 1) export the data, 2) quantify ROIs, 3) plot the data.
 
-Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor that detects Glucose as an example. Timelapse data were acquired, for 70 frames.
+Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor that detects Glucose as an example (Botman et al., 2024, doi:[10.1101/2024.11.29.626064](https://doi.org/10.1101/2024.11.29.626064)). Timelapse data were acquired, for 70 frames.
 
 ### Step 1. Export
 
