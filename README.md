@@ -7,7 +7,7 @@ The analysis consists of three steps; 1) export the data, 2) quantify ROIs, 3) p
 
 Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor that detects Glucose as an example. Timelapse data were acquired, for 70 frames.
 
-### Export
+### Step 1. Export
 
 In the Leica software, make sure that the lifetime data is visible (the 'Fast FLIM' tab should be selected). Now right-click with the mouse button and select 'Export Raw Data'.
 A window pops up and make sure that the settings are exactly like the screenshot included here:
@@ -18,7 +18,7 @@ This will save a TIF stack that has 2 slices for each timepoint.
 
 
 
-### Quantification
+### Step 2. Quantification
 
 - Open the TIF stack in ImageJ/FIJI
 - Draw an ROI to select a single cell.
@@ -40,12 +40,12 @@ This will save a TIF stack that has 2 slices for each timepoint.
 - Save the resulting file as CSV
 - Repeat for all TIF stacks
 
-### Visualization
+### Step 3. Visualization
 
 - The analysis will be performed on all CSV files, assuming that each CSV is an independent replicate.
 - The code in the .Rmd file assumes that the CSV files are in a subfolder called `output_ImageJ`
 - Run the Rmd script step-by-step and tweak where necessary.
-- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example [THINGL-analysis.html](THINGL-analysis.html) is also included in this repo.
+- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example `THINGL-analysis.html` is also included in this repo.
 
 
 
