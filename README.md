@@ -12,10 +12,6 @@ Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor th
 In the Leica software, make sure that the lifetime data is visible (the 'Fast FLIM' tab should be selected). Now right-click with the mouse button and select 'Export Raw Data'.
 A window pops up and make sure that the settings are exactly like the screenshot included here:
 
-![screenshot](Screenshots/Screenshot-Stellaris.PNG)
-
-<img src="Screenshots/Screenshot-Stellaris.PNG" width=50% height=50%>
-
 <img src="Screenshots/Screenshot-Stellaris.PNG" width=50%>
 
 This will save a TIF stack that has 2 slices for each timepoint.
@@ -27,7 +23,7 @@ This will save a TIF stack that has 2 slices for each timepoint.
 - Open the TIF stack in ImageJ/FIJI
 - Draw an ROI to select a single cell.
 
-![screenshot](Screenshots/Screenshot-ROIs.png)
+<img src="Screenshots/Screenshot-ROIs.png" width=50%>
         
 - Add the ROI to the ROI manager by pressing `t`
 - Repeat until all cells are selected
@@ -35,11 +31,11 @@ This will save a TIF stack that has 2 slices for each timepoint.
 - Select 'Multi Measure' on the ROI manager.
 - Make sure that only the first box is checked
 
-![screenshot](Screenshots/Screenshot-MultiMeasure.png)
+<img src="Screenshots/Screenshot-MultiMeasure.png" width=50%>
 
 - The results are shown in a window like this:
 
-![screenshot](Screenshots/Screenshot-Results.png)
+<img src="Screenshots/Screenshot-Results.png" width=50%>
 
 - Save the resulting file as CSV
 - Repeat for all TIF stacks
@@ -47,9 +43,9 @@ This will save a TIF stack that has 2 slices for each timepoint.
 ### Visualization
 
 - The analysis will be performed on all CSV files, assuming that each CSV is an independent replicate.
-- The code in the .Rmd file assumes that the CSV files are in a subfolder called `Data_CSV`
+- The code in the .Rmd file assumes that the CSV files are in a subfolder called `output_ImageJ`
 - Run the Rmd script step-by-step and tweak where necessary.
-- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example `THINGL-analysis.html` is also included in this repo.
+- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example [THINGL-analysis.html](THINGL-analysis.html) is also included in this repo.
 
 
 
