@@ -14,7 +14,7 @@ A window pops up and make sure that the settings are exactly like the screenshot
 
 <img src="Screenshots/Screenshot-Stellaris.PNG" width=50%>
 
-This will save a TIF stack that has 2 slices for each timepoint.
+This will save a TIF stack that has 2 'Channels' for each timepoint. The first Channel has the intensity information and the second Channel the lifetime data.
 
 
 
