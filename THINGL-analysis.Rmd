@@ -52,7 +52,7 @@ df_combined <- df_combined %>% filter(Frame <= 70)
 Let's have a look at the intensity (Ch1) and lifetime (Ch2) traces data:
 
 ```{r}
-df_combined %>% ggplot(., aes(x=Frame, y=Mean, group = ROI)) + geom_line() +facet_grid(Ch~source)
+df_combined %>% ggplot(., aes(x=Frame, y=Mean, group = ROI)) + geom_line() +facet_grid(Ch~File)
 ```
 
 The data in Channel 1 is intensity and Channel 2 is lifetime. We will separate these into different columns as these are different measures:
@@ -81,7 +81,7 @@ df_lifetime <- df_lifetime %>% mutate(Time = (Frame-1)*15)
 At this point we have a dataframe that is well-structured and it can be used for plotting the lifetime data over time:
 
 ```{r}
-ggplot(df_lifetime, aes(x=Time, y=Lifetime, group = ROI)) + geom_line() +facet_wrap(~source, ncol=4)
+ggplot(df_lifetime, aes(x=Time, y=Lifetime, group = ROI)) + geom_line() +facet_wrap(~File)
 ```
 
 We can also save this as a CSV file as it can be used for plotting with e.g. PlotTwist:
