@@ -12,7 +12,7 @@ Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor th
 In the Leica software, make sure that the lifetime data is visible (the 'Fast FLIM' tab should be selected). Now right-click with the mouse button and select 'Export Raw Data'.
 A window pops up and make sure that the settings are exactly like the screenshot included here:
 
-        [screenshot]
+![screenshot](Screenshots/Screenshot-Stellaris.PNG)
 
 This will save a TIF stack that has 2 slices for each timepoint.
 
@@ -23,7 +23,7 @@ This will save a TIF stack that has 2 slices for each timepoint.
 - Open the TIF stack in ImageJ/FIJI
 - Draw an ROI to select a single cell.
 
-        [screenshot]
+![screenshot](Screenshots/Screenshot-ROIs.png)
         
 - Add the ROI to the ROI manager by pressing `t`
 - Repeat until all cells are selected
@@ -31,11 +31,11 @@ This will save a TIF stack that has 2 slices for each timepoint.
 - Select 'Multi Measure' on the ROI manager.
 - Make sure that only the first box is checked
 
-        [screenshot]
+![screenshot](Screenshots/Screenshot-MultiMeasure.png)
 
 - The results are shown in a window like this:
 
-        [screenshot]
+![screenshot](Screenshots/Screenshot-Results.png)
 
 - Save the resulting file as CSV
 - Repeat for all TIF stacks
