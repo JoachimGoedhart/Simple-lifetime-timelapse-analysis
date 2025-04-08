@@ -21,22 +21,22 @@ Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor th
 
 <img src="Screenshots/Stellaris-Export-to-ImageJ.PNG" width=50%>
 
-This will save a TIF stack that has 2 slices for each timepoint.
+This will save a TIF stack that has 2 'Channels' for each timepoint. The first Channel has the intensity information and the second Channel the lifetime data.
 
 
 
 ### Step 2. Quantification
 
-- Open the TIF stack in ImageJ/FIJI
+- Open the TIF stack in ImageJ/FIJI.
 - Draw an ROI to select a single cell.
 
 <img src="Screenshots/Screenshot-ROIs.png" width=50%>
         
-- Add the ROI to the ROI manager by pressing `t`
-- Repeat until all cells are selected
+- Add the ROI to the ROI manager by pressing `t`.
+- Repeat until all cells are selected.
 - Select all ROIs in the ROI manager.
 - Select 'Multi Measure' on the ROI manager.
-- Make sure that only the first box is checked
+- Make sure that only the first box is checked.
 
 <img src="Screenshots/Screenshot-MultiMeasure.png" width=50%>
 
@@ -44,15 +44,15 @@ This will save a TIF stack that has 2 slices for each timepoint.
 
 <img src="Screenshots/Screenshot-Results.png" width=50%>
 
-- Save the resulting file as CSV
-- Repeat for all TIF stacks
+- Save this window with Results as a CSV file.
+- Repeat for all TIF stacks.
 
 ### Step 3. Visualization
 
 - The analysis will be performed on all CSV files, assuming that each CSV is an independent replicate.
-- The code in the .Rmd file assumes that the CSV files are in a subfolder called `output_ImageJ`
+- The code in the .Rmd file assumes that the CSV files are in a subfolder called `output_ImageJ`.
 - Run the THINGL-analysis.Rmd script step-by-step and tweak where necessary.
-- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example `THINGL-analysis.html` is also included in this repo (download and open in a web browser)
+- The resulting plots can be saved individually, but you can also 'knit' the Rmd file to produce an HTML of the notebook that has all the code and output. An example `THINGL-analysis.html` is also included in this repo (download and open in a web browser).
 - Example output:
 
 <img src="output_R/Plot_lifetime_timelapse.png" width=50%>
