@@ -13,9 +13,9 @@ Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor th
 
 <img src="Screenshots/Stellaris-FastFLIM.PNG" width=50%>
 
-- Now right-click with the mouse button and select 'Export Raw Data':
+- Now right-click in the lifetime image with the mouse button and select 'Export Raw Data':
 
-<img src="Screenshots/Stellaris-Save.PNG" width=50%>
+<img src="Screenshots/Stellaris-Save.PNG" width=25%>
 
 - A window pops up and make sure that the settings are exactly like the screenshot included here:
 
