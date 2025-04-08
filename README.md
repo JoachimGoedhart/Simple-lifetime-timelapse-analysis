@@ -1,7 +1,7 @@
 # Simple, fit-free analysis of timelapse FLIM data
 
 In this repository you will find a step-by-step explanation of how lifetime data acquired with the Leica Stellaris8 can be exported and analysed with ImageJ and R/ggplot2.
-The analysis is simple and fit-free as it uses the arrival times that are determined by the 'Fast FLIM' mode in the Leica Software. For a more comprehensive analysis use the full decay.
+The analysis is simple and fit-free as it uses the arrival times that are determined by the 'Fast FLIM' mode in the Leica Software. For a more comprehensive analysis you should use the full decay information.
 
 The analysis consists of three steps; 1) export the data, 2) quantify ROIs, 3) plot the data.
 
