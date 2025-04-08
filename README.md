@@ -9,10 +9,17 @@ Here we use FLIM data that was acquired from a Turquoise-based FLIM biosensor th
 
 ### Step 1. Export
 
-In the Leica software, make sure that the lifetime data is visible (the 'Fast FLIM' tab should be selected). Now right-click with the mouse button and select 'Export Raw Data'.
-A window pops up and make sure that the settings are exactly like the screenshot included here:
+- In the Leica software, make sure that the lifetime data is visible (the 'Fast FLIM' tab should be selected):
 
-<img src="Screenshots/Screenshot-Stellaris.PNG" width=50%>
+<img src="Screenshots/Stellaris-FastFLIM.PNG" width=50%>
+
+- Now right-click with the mouse button and select 'Export Raw Data':
+
+<img src="Screenshots/Stellaris-Save.PNG" width=50%>
+
+- A window pops up and make sure that the settings are exactly like the screenshot included here:
+
+<img src="Screenshots/Stellaris-Export-to-ImageJ.PNG" width=50%>
 
 This will save a TIF stack that has 2 slices for each timepoint.
 
