@@ -32,10 +32,10 @@ This will save a TIF stack that has 2 'Channels' for each timepoint. The first C
 
 <img src="Screenshots/Screenshot-ROIs.png" width=50%>
         
-- Add the ROI to the ROI manager by pressing `t`.
+- Add the ROI to the ROI manager by pressing `t` on the keyboard or 'Add [t]' on the ROI Manager.
 - Repeat until all cells are selected.
 - Select all ROIs in the ROI manager.
-- Select 'Multi Measure' on the ROI manager.
+- Select 'Multi Measure' on the ROI manager (More >> Multi Measure)
 - Make sure that only the first box is checked.
 
 <img src="Screenshots/Screenshot-MultiMeasure.png" width=50%>
